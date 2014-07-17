@@ -1,0 +1,12 @@
+Source: logstash-forwarder
+Section: utils
+Priority: extra
+Maintainer: neeravkumar <me@nero.im>
+Build-Depends: debhelper (>= 7.0.50~), golang
+Standards-Version: 3.9.1
+Homepage: https://github.com/elasticsearch/logstash-forwarder
+
+Package: logstash-forwarder
+Architecture: amd64
+Depends: ${misc:Depends}
+Description: A tool to collect logs locally in preparation for processing elsewhere!

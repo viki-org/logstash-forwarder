@@ -1,0 +1,13 @@
+logstash-forwarder (0.3.1ubuntu1) trusty; urgency=medium
+
+  * 
+
+ -- neeravkumar <me@nero.im>  Thu, 17 Jul 2014 18:19:53 +0800
+
+logstash-forwarder (0.3.1) trusty; urgency=medium
+
+  * Package for trusty
+
+ -- neeravkumar <me@nero.im>  Thu, 17 July 2014 12:19:57 +0800
+
+
