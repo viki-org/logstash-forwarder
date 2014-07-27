@@ -12,7 +12,7 @@ import (
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 var spool_size = flag.Uint64("spool-size", 1024, "Maximum number of events to spool before a flush is forced.")
 var idle_timeout = flag.Duration("idle-flush-time", 5*time.Second, "Maximum time to wait for a full spool before flushing anyway")
-var config_file = flag.String("config", "", "The config file to load")
+var config_arg = flag.String("config", "", "The config file or directory to load")
 var use_syslog = flag.Bool("log-to-syslog", false, "Log to syslog instead of stdout")
 var from_beginning = flag.Bool("from-beginning", false, "Read new files from the beginning, instead of the end")
 
@@ -32,10 +32,27 @@ func main() {
     }()
   }
 
-  config, err := LoadConfig(*config_file)
-  if err != nil {
-    return
+  if *config_arg == "" {
+    log.Fatal("-config required")
   }
+
+  config_files, err := DiscoverConfigs(*config_arg)
+  if err != nil {
+    log.Fatalf("Could not use -config of '%s': %s", *config_arg, err)
+  }
+
+  var config Config
+
+  for _, filename := range config_files {
+    additional_config, err := LoadConfig(filename)
+    if err == nil {
+      err = MergeConfig(&config, additional_config)
+    }
+    if err != nil {
+      log.Fatalf("Could not load config file %s: %s", filename, err)
+    }
+  }
+  FinalizeConfig(&config)
 
   event_chan := make(chan *FileEvent, 16)
   publisher_chan := make(chan []*FileEvent, 1)
