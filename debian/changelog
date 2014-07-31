@@ -1,6 +1,12 @@
+logstash-forwarder (0.3.2) trusty; urgency=medium
+
+  * merged multiple configs pull request
+
+ -- neeravkumar <me@nero.im>  Thu, 17 Jul 2014 18:19:53 +0800
+
 logstash-forwarder (0.3.1ubuntu1) trusty; urgency=medium
 
-  * 
+  * First Release
 
  -- neeravkumar <me@nero.im>  Thu, 17 Jul 2014 18:19:53 +0800
 
